@@ -1,0 +1,1082 @@
+用js闭包和继承来介绍自己
+function wyy(){
+
+}
+
+浏览器的跨域请求
+概念：只要协议、域名、端口有任何一个不同，都被当作是不同的域。
+对于端口和协议的不同，只能通过后台来解决。
+跨域资源共享（CORS）
+服务器端对于CORS的支持，主要就是通过设置Access-Control-Allow-Origin来进行的。如果浏览器检测到相应的设置，就可以允许Ajax进行跨域的访问。
+通过jsonp跨域(大概思路生成一个function，一个script，src为请求的url，请求里带有callback为function的name，请求结束后执行function)
+优点，兼容性比较好，缺点支能支持get，不能post
+iframe里 通过修改document.domain来跨子域
+
+
+String的金额的转换，转成每3个一个逗号的那个
+方法1、转换为数组，然后循环判断一下位置，合并一下文本
+方法2、先计算有多个逗号，然后
+var cuter10 = function(str){//Rekey
+var len = str.length, str2 = '', max = Math.floor(len / 3);
+    for(var i = 0 ; i < max ; i++){
+        var s = str.slice(len - 3, len);
+        str = str.substr(0, len - 3);
+        str2 = (',' + s) + str2;
+        len = str.length;
+    }
+    str += str2;
+    return str
+}
+
+
+固定宽高，让里面的字体自动根据字体多少变化字号
+计算字体大小然后 css来设置
+
+string数组去重
+es6   Array.from(new Set(a));
+es5
+var res = a.filter(function(item, index, array) {
+  return array.indexOf(item) === index;
+});
+
+如何用原生js实现jquery中的addclass方法
+
+function hasClass(elem, cls) {
+  cls = cls || '';
+  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+  return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
+}
+
+function addClass(ele, cls) {
+  if (!hasClass(elem, cls)) {
+    ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
+  }
+}
+
+function removeClass(ele, cls) {
+  if (hasClass(elem, cls)) {
+    var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, '') + ' ';
+    while (newClass.indexOf(' ' + cls + ' ') >= 0) {
+      newClass = newClass.replace(' ' + cls + ' ', ' ');
+    }
+    elem.className = newClass.replace(/^\s+|\s+$/g, '');
+  }
+}
+
+二维码扫描登录的实现，包括业务以及技术实现
+前端请求服务端获取一个带有唯一ID的二维码，然后不停刷新服务来判断时候登录成功，手机端扫码，点击后告诉服务端登录，服务端返回前端登录成功
+
+
+HTML5新增了哪些内容或API，使用过哪些
+1.document.querySelector() 元素 和document.querySelectorAll() 元素数组
+
+2.document.getElementsByClassName()
+
+3.classList属性
+add(value)：将给定的字符串值添加到列表中。如果值已经存在，就不添加了。
+contains(value)：表示列表中是否存在给定的值，如果存在则返回true，否则返回false。
+remove(value)：从列表中删除给定的字符串。
+toggle(value)：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它
+
+4.自定义数据属性
+1 var div=document.getElementById('myDiv');
+2 if(div.dataset.myname){alert(div.dataset.myname);}
+5.insertAdjacentHtml(),insertAdjacentText(),insertAdjacentElement()
+6.FullScreen API
+7.页面可见性（Page Visibility
+8.预加载（prefetch）
+8.图形元素（The Figure Element）
+9.内容可编辑（contenteditable）
+10.本地存储（Local Storage）
+
+
+input和textarea的区别
+<input>是一个单行输入框，有value属性（value属性指定初始值），但是它不能自动换行；用来放置字数较少的单行文字内容
+<textarea>是一个多行输入框，没有value属性，但是它能自动换行；一般让用户可以输入多行文字,输入的文字信息量相比较大
+
+
+用一个div模拟textarea的实现
+<div contenteditable="true">
+</div>
+
+
+移动设备忽略将页面中的数字识别为电话号码的方法
+<meta name = "format-detection" content = "telephone=no">
+
+
+左右布局：左边定宽、右边自适应，不少于3种方法
+1.左边设置左浮动，右边宽度设置100%
+2.父容器设置 display：flex；Right部分设置 flex：1
+3.设置浮动 + 在 css 中使用 calc() 函数
+4.使用负margin
+
+CSS3用过哪些新特性
+@Font-face 加载字体样式
+@font-face {
+ font-family: BorderWeb;
+ src:url(BORDERW0.eot);
+ }
+  .border { FONT-SIZE: 35px; COLOR: black; FONT-FAMILY: "BorderWeb" }
+
+圆角
+border-radius: 15px;
+
+阴影（Shadow）
+text-shadow:5px 2px 6px rgba(64, 64, 64, 0.5);
+
+
+BFC、IFC
+
+对栅格的理解
+
+（水平）居中有哪些实现方式
+
+1像素边框问题
+
+图片懒加载
+
+实现页面加载进度条
+
+事件委托
+
+实现extend函数
+
+为什么会有跨域的问题以及解决方式
+
+jsonp原理、postMessage原理
+
+实现拖拽功能，比如把5个兄弟节点中的最后一个节点拖拽到节点1和节点2之间
+
+动画：setTimeout何时执行，requestAnimationFrame的优点
+
+手写parseInt的实现：要求简单一些，把字符串型的数字转化为真正的数字即可，但不能使用JS原生的字符串转数字的API，比如Number()
+
+编写分页器组件的时候，为了减少服务端查询次数，点击“下一页”怎样能确保还有数据可以加载（请求数据不会为空）？
+
+ES6新增了哪些特性，使用过哪些，也有当场看代码说输出结果的
+
+JS模块化的实践
+
+require.js的实现原理（如果使用过webpack，进一步会问，两者打包的异同及优缺点）
+
+promise的实现原理，进一步会问async、await是否使用过
+
+实现gulp的功能
+
+使用前端框架（angular/vue/react）带来哪些好处，相对于使用jQuery
+
+vue双向数据绑定的实现
+
+单页应用，如何实现其路由功能
+
+项目中使用过哪些优化方法
+
+输入一个URL，Enter之后发生了什么
+
+（承上）页面的渲染过程
+
+优化中会提到缓存的问题，问：静态资源或者接口等如何做缓存优化
+
+页面DOM节点太多，会出现什么问题？如何优化？
+
+介绍一下你做的这个项目，进一步细问：整个项目有哪些模块，你主要负责哪些
+
+你在项目中的角色
+
+你在项目中做的最出彩的一个地方
+
+碰到过什么样的困难，怎么解决的
+
+（如果你是这个项目的负责人），任务怎么分配的，有没有关注过团队成员的成长问题
+
+前端安全问题：CSRF和XSS
+
+比如webpack打包原理、如何写webpack插件等。
+
+技术一面面的是一些比较具体的细节，用过什么框架啊，底层的原理是什么啊，浏览器模型啊，设计模式什么的大概40分钟的样子，然后第二天就是技术二面，问的差不多，第三天就是技术三面，问了很多网络和服务器的问题
+
+prototype和__proto__的关系是什么
+meta viewport原理
+域名收敛是什么
+float和display：inline-block；的区别
+前端优化策略列举
+首屏、白屏时间如何计算
+闭包
+作用域链
+ajax如何实现、readyState五中状态的含义
+jsonp如何实现
+怎么处理跨域
+restful的method解释
+get和post的区别
+事件模型解释
+编写一个元素拖拽的插件
+编写一个contextmenu的插件
+编写web端cookie的设置和获取方法
+兼容ie６的水平垂直居中
+兼容ie的事件封装
+h5和原生android的优缺点
+编写h5需要注意什么
+xss和crsf的原理以及怎么预防
+css优先级
+如何实现点击radio的文字描述控制radio的状态（通过label实现）
+delegate如何实现
+
+react在setState后发生了什么（直接说了setState源码）
+flux解释
+对react有什么了解（直接说了react中虚拟dom内部表示，mount过程源码和同步过程源码）
+
+amd和cmd区别，怎么了解到这些区别的，是否是去看了规范
+requirejs那些经常用的方法，然后对其进行解释
+weex实现大致原理
+
+accept是什么，怎么用
+http协议状态码，302和303的区别
+前端缓存如何实现、etag如何实现、etag和cache-control的max-age的优先级哪个比较高以及为什么、cache-control和expire优先级哪个比较高以及为什么
+
+Buffer模块是干什么的
+Stream是什么，使用的两种模式
+http模块如何将异步处理方式实现成同步处理方式，具体解析请参考http模块如何将异步处理转成同步处理
+
+utf8和gbk的区别
+知道页面上某个点的坐标，如何获取该坐标上的所有元素
+angular、react和jQuery适合哪些应用场景（建议查看各个框架产生背景）
+7点15分小于180度的夹角是多少
+大数相加
+给５升和６升的水杯如何倒出３升的水
+一班喜欢足球的人60%，喜欢排球的70%，喜欢篮球的80%，求喜欢足球和排球的占多少
+前端异常监测如何实现
+直播点赞按钮的冒泡功能如何实现
+js的uglify如何实现
+项目架构、如何带人（自己带过一个小团队）
+前端工程化方面做了哪些东西
+
+你知道什么是CSS reset么
+你平常写CSS的时候有考虑过CSS的性能么
+你知道什么是CSS预处理么
+关于浮动的原理和工作方式，你可以描述一下么
+浮动会产生什么影响呢，要怎么处理？
+
+8.你了解哪些选择器？以及这些选择器的使用场景？
+
+9.你知道它们的权重怎么计算么
+
+10.你了解哪些布局？你平时有使用过什么布局实现？
+
+11.对于js你平常用什么框架？
+
+12.你从jQuery学到了什么？（跳坑了竟说自己看过源代码...然后不会说了..)
+
+13.js有哪些数据类型呢
+
+14.这些数据类型，哪些是引用类型的呢
+
+15.你知道原型链么
+
+16.说说函数表达式和函数声明的区别
+
+17.你知道闭包么，为什么要使用闭包？
+
+18.你知道attribute和property的区别么
+
+19.你有了解过作用域链么
+
+除了nodejs还可以怎么实现爬虫？原生的js可以实现么？
+
+balabla 可以用其他后端语言实现 Python，php等等，js原生就用ajax吧
+怎么用ajax实现？它的原理是？
+平时有了解web性能么，一般要关注哪些点？
+
+balabla 扯到了css编写，html结构，资源压缩，文件结构的处置等，然后就被问到
+资源压缩文件处置，是指？
+构建工具如grunt,gulp 但目前公司使用的是基于fis构建的那个scrat模块化工具进行代码的编写文件结构的处理，自动化工具可以自动地使用一些简单的命令实现诸如文件压缩，文件合并，内容嵌入等等功能
+对于文件的请求，有时候http的请求效率会很慢，怎么办呢？
+那就使用文件合并了，比如将多个小文件合并成大文件，或者将该嵌入的内容嵌入到html，css sprites等等，减少http请求数
+浏览器可以并行下载多少个资源？
+balabla  一般就是6个吧，如果的IE6就只有两个了
+你了解后端技术么，前后端一般是怎么配合的？
+了解php，nodejs应该也属于服务器范畴的后端，数据配合主要是json或xml吧
+
+
+　　一、CSS盒子模型，绝对定位和相对定位
+
+
+
+　　1）清除浮动，什么时候需要清除浮动，清除浮动都有哪些方法
+
+
+
+　　2）如何保持浮层水平垂直居中
+
+
+
+　　3）position 和 display 的取值和各自的意思和用法
+
+
+
+　　4）样式的层级关系，选择器优先级，样式冲突，以及抽离样式模块怎么写，说出思路，有无实践经验
+
+
+
+　　二、JavaScript基础
+
+
+
+　　1）JavaScript 里有哪些数据类型，解释清楚 null 和 undefined，解释清楚原始数据类型和引用数据类型。比如讲一下 1 和 Number(1) 的区别
+
+
+
+　　2）将一下 prototype 是什么东西，原型链的理解，什么时候用 prototype
+
+
+
+　　3）函数里的this什么含义，什么情况下，怎么用。
+
+
+
+　　4）apply 和 call 什么含义，什么区别？什么时候用。
+
+
+
+　　5）数组和对象有哪些原生方法，列举一下，分别是什么含义，比如链接两个数组用哪个方法，删除数组的质定项。
+
+
+
+　　三、JavaScript的面向对象
+
+
+
+　　1）JS 模块包装格式都用过哪些，CommonJS、AMD、CMD、KMD。定义一个js 模块代码，最精简的格式是怎样。
+
+
+
+　　2）JS 怎么实现一个类。怎么实例化这个类。
+
+
+
+　　3）是否了解自定义事件。jQuery里的fire函数是什么意思，什么时候用。
+
+
+
+　　4）说一下了解的js 设计模式，解释一下单例、工厂、观察者。
+
+
+
+　　5）ajax 跨域有哪些方法，jsonp 的原理是什么，如果页面编码和被请求的资源编码不一致如何处理？
+
+
+
+　　四、开源工具
+
+
+
+　　1）是否了解开源的工具 bower、npm、yeoman、Grunt、gulp，有无用过，有无写过，一个 npm 的包里的 package.json 具备的必要的字段都有哪些（名称、版本号，依赖）
+
+
+
+　　2）fiddle、charles 有没有用过，什么时候用
+
+
+
+　　3）会不会用 ps 扣图，png、jpg、gif 这些图片格式解释一下，分别什么时候用。
+
+
+
+　　4）说一下你常用的命令行工具
+
+
+
+　　5）会不会用git，说上来几个命令，说一下git和svn的区别，有没有用git解决过冲突
+
+
+
+　　五、计算机基础
+
+
+
+　　1）说一下网络五层模型（HTTP协议从应用层到底层都基于哪些协议），HTTP 协议头字段说上来几个，缓存字段是怎么定义的，http和https的区别，在具体使用的时候有什么不一样。是否尽可能详细的掌握HTTP协议。
+
+
+
+　　2）cookies 是干嘛的，服务器和浏览器之间的 cookies 是怎么传的，httponly 的 cookies 和可读写的 cookie 有什么区别，有无长度限制
+
+
+
+　　3）从敲入 URL 到渲染完成的整个过程，包括 DOM 构建的过程，说的约详细越好。
+
+
+
+　　4）是否了解web注入攻击，说下原理，最常见的两种攻击（XSS 和 CSRF）了解到什么程度。
+
+
+
+　　5）是否了解公钥加密和私钥加密。如何确保表单提交里的密码字段不被泄露。验证码是干嘛的，是为了解决什么安全问题。
+
+
+
+　　6）编码常识：文件编码、URL 编码、Unicode编码 什么含义。一个gbk编码的页面如何正确引用一个utf8的的资源
+
+
+ 你用过 vue 的组件吗
+ 你能说说事件监听
+ addEventListener
+
+ css 中 position 有几种值？ 这个有准备，四种 absolute，static，relative，fixed
+  编译原理学了什么？ 词法分析，语法分析，中间代码生成，代码优化，最终代码生成
+  语法分析的过程
+  自顶向下和自底向上法
+  Huffman 树怎么实现的
+
+  1、自我介绍：
+  2、之前公司产品介绍及个人工作描述：
+  3、个人开发插件（Gridmanager）介绍：
+
+  javascript数组去重，需要提供至少3种方法，并比较它们到优劣
+
+  react三大原则。
+
+答state以单一对象存储在store中， state只读 ， 纯函数reducer执行state更新。
+
+问react项目性能怎么优化。
+
+答·redux 尽量减少共通管理的数据··常见js的优化原则，减少链式调用,及时跳出循环·循环生成列表的时候要有key值·shouldComponentUpdate减少不必要的dom更新操作(选择性子树渲染)。
+
+问虚拟dom实现的原理以及怎么实现。
+
+答本质是js变量，跟真实dom一样的树形结构，通过dom diff 算法把需要更新的地方反映到真实的dom中。
+
+CSS布局样式：左右布局，左边定宽，右边自适应，不少于三种方式
+
+1、什么是盒子模型？
+
+在网页中，一个元素占有空间的大小由几个部分构成，其中包括元素的内容（content），元素的内边距（padding），元素的边框（border），元素的外边距（margin）四个部分。这四个部分占有的空间中，有的部分可以显示相应的内容，而有的部分只用来分隔相邻的区域或区域。4个部分一起构成了css中元素的盒模型。
+
+2、行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？
+
+行内元素：a、b、span、img、input、strong、select、label、em、button、textarea
+
+块级元素：div、ul、li、dl、dt、dd、p、h1-h6、blockquote
+
+空元素：即系没有内容的HTML元素，例如：br、meta、hr、link、input、img
+
+简述一下src与href的区别
+
+href 是指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，用于超链接。
+
+src是指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置；在请求src资源时会将其指向的资源下载并应用到文档内，例如js脚本，img图片和frame等元素。当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等元素也如此，类似于将所指向资源嵌入当前标签内。这也是为什么将js脚本放在底部而不是头部。
+
+3、CSS实现垂直水平居中
+
+
+对于这几个题目小编认为主要考察自己在学习html/cs静态为主时自己记忆方面的优势，在理解和逻辑不是很大的作用。
+
+怎样添加、移除、移动、复制、创建和查找节点？
+
+1）创建新节点
+
+createDocumentFragment() //创建一个DOM片段
+
+createElement() //创建一个具体的元素
+
+createTextNode() //创建一个文本节点
+
+2）添加、移除、替换、插入
+
+appendChild() //添加
+
+removeChild() //移除
+
+replaceChild() //替换
+
+insertBefore() //插入
+
+3）查找
+
+getElementsByTagName() //通过标签名称
+
+getElementsByName() //通过元素的Name属性的值
+
+getElementById() //通过元素Id，唯一性
+
+4、如何消除一个数组里面重复的元素？
+
+
+1、html document 是干嘛的？
+
+2、html 5 哪些操作可以 SEO优化
+
+3、css 盒模型有哪些及区别 content-box border-box padding-box
+
+4、重排重绘机制 webkit渲染页面的步骤
+
+5、body 有一个捕捉机制的事件 里面某一个块的事件 有没有办法不触发捕捉机制
+
+6、解决回调地狱的方法 （回答 Promise 再问还有 什么？ 回答 Observerble 再问还有什么？ 不知道了）
+
+7、Promise.then reject了 后续的catch 还会不会致行
+
+8、let A = Promise对象 SetTimeout（执行Promie.then(alert(a))） 会有什么结果
+
+9、nodejs 错误处理机制 以及报错后 不断开继续执行 （应该不是用类似nodeman那种方式）
+
+10、Hybrid native 和 rn 的区别 以及 优劣
+
+11、 最近项目中遇到的问题 以及解决方案 （聊了 UIWebview 和 WkWebview ） JAVA IOS里的一些兼容性 的坑
+
+12、 发短信倒计时 如果客户退出浏览器 怎样下次进来 如果时间还一分钟之内 继续倒计时 （回答了 localStorye存退出时间以及剩余时间 反问 用户改了本地系统时间再进来怎么 回答了 服务端保存数据 下次访问 提取 反问 服务端不想保存这些无效数据 有没有别的解决方案）
+
+13、模糊搜索 比如300多个城市 有汉字有拼音 怎么处理搜索 （回答 两条链表 汉字字母对应 模糊搜索 如果搜索a州 跳出杭州 如果搜索 aa 杭州排除 问了好半天 最后给出 要循环搜索600个数据的解决方案 问我有没有更加的解决方案 ）（现在想到了 用WebAsemmbly做数据处理）
+
+14、es5 + es6 值类型有什么
+
+15、typeof instanceof 区别
+
+16、typeof null 返回什么
+
+17、instanceof undefined 返回什么
+
+18、检测数组的方法 回答 Array.isArrary 还有什么？ 先typeof 再instanceof
+
+19、浮点型数据 相减。。 （*100 再减 再除100 再问不确定浮点位数咋办？ 懵逼）
+
+20、IE浏览器 开启怪异模式的方式是什么? （高程里看到过 不过不记得了）
+
+21、js实现 vue-rooter 单页不刷新页面路由跳转
+
+22、vue 状态机制 数据绑定机制 在别的什么地方 你用过这个机制
+
+23、函数式编程 纯函数 怎么理解
+
+2016阿里前端面试题及其分析
+分析持续更新中，非常欢迎您在评论中给出您的答案或者对我的分析有看法的。
+
+1.以下对于HTTP和HTTPS描述错误的是
+HTTP使用的80端口，HTTPS使用的是443端口
+HTTP明文传输，HTTPS使用ssl加密
+HTTPS中的SSL加密方式为MD5
+HTTPS协议需要到ca申请证书
+分析:
+2.margin: 5px 10px 15px 20px; 请问左边距的值是多少
+5px
+10px
+15px
+20px
+
+分析:
+CSS margin 属性
+设置外边距的最简单的方法就是使用 margin 属性。
+
+margin 属性接受任何长度单位，可以是像素、英寸、毫米或 em。
+
+margin 可以设置为 auto。更常见的做法是为外边距设置长度值。下面的声明在 h1 元素的各个边上设置了 1/4 英寸宽的空白：
+
+h1 {margin : 0.25in;}
+下面的例子为 h1 元素的四个边分别定义了不同的外边距，所使用的长度单位是像素 (px)：
+
+h1 {margin : 10px 0px 15px 5px;}
+与内边距的设置相同，这些值的顺序是从上外边距 (top) 开始围着元素顺时针旋转的：
+
+margin: top right bottom left
+另外，还可以为 margin 设置一个百分比数值：
+
+p {margin : 10%;}
+百分数是相对于父元素的 width 计算的。上面这个例子为 p 元素设置的外边距是其父元素的 width 的 10%。
+
+margin 的默认值是 0，所以如果没有为 margin 声明一个值，就不会出现外边距。但是，在实际中，浏览器对许多元素已经提供了预定的样式，外边距也不例外。例如，在支持 CSS 的浏览器中，外边距会在每个段落元素的上面和下面生成“空行”。因此，如果没有为 p 元素声明外边距，浏览器可能会自己应用一个外边距。当然，只要你特别作了声明，就会覆盖默认样式。
+
+值复制
+还记得吗？我们曾经在前两节中提到过值复制。下面我们为您讲解如何使用值复制。
+
+有时，我们会输入一些重复的值：
+
+p {margin: 0.5em 1em 0.5em 1em;}
+通过值复制，您可以不必重复地键入这对数字。上面的规则与下面的规则是等价的：
+
+p {margin: 0.5em 1em;}
+这两个值可以取代前面 4 个值。这是如何做到的呢？CSS 定义了一些规则，允许为外边距指定少于 4 个值。规则如下：
+
+如果缺少左外边距的值，则使用右外边距的值。
+如果缺少下外边距的值，则使用上外边距的值。
+如果缺少右外边距的值，则使用上外边距的值。
+下图提供了更直观的方法来了解这一点：
+
+
+换句话说，如果为外边距指定了 3 个值，则第 4 个值（即左外边距）会从第 2 个值（右外边距）复制得到。如果给定了两个值，第 4 个值会从第 2 个值复制得到，第 3 个值（下外边距）会从第 1 个值（上外边距）复制得到。最后一个情况，如果只给定一个值，那么其他 3 个外边距都由这个值（上外边距）复制得到。
+
+利用这个简单的机制，您只需指定必要的值，而不必全部都应用 4 个值，例如：
+
+h1 {margin: 0.25em 1em 0.5em;}    /* 等价于 0.25em 1em 0.5em 1em */
+h2 {margin: 0.5em 1em;}        /* 等价于 0.5em 1em 0.5em 1em */
+p {margin: 1px;}         /* 等价于 1px 1px 1px 1px */
+这种办法有一个小缺点，您最后肯定会遇到这个问题。假设希望把 p 元素的上外边距和左外边距设置为 20 像素，下外边距和右外边距设置为 30 像素。在这种情况下，必须写作：
+
+p {margin: 20px 30px 30px 20px;}
+这样才能得到您想要的结果。遗憾的是，在这种情况下，所需值的个数没有办法更少了。
+
+再来看另外一个例子。如果希望除了左外边距以外所有其他外边距都是 auto（左外边距是 20px）：
+
+p {margin: auto auto auto 20px;}
+同样的，这样才能得到你想要的效果。问题在于，键入这些 auto 有些麻烦。如果您只是希望控制元素单边上的外边距，请使用单边外边距属性。
+
+单边外边距属性
+您可以使用单边外边距属性为元素单边上的外边距设置值。假设您希望把 p 元素的左外边距设置为 20px。不必使用 margin（需要键入很多 auto），而是可以采用以下方法：
+
+p {margin-left: 20px;}
+您可以使用下列任何一个属性来只设置相应上的外边距，而不会直接影响所有其他外边距：
+
+margin-top
+margin-right
+margin-bottom
+margin-left
+一个规则中可以使用多个这种单边属性，例如：
+
+h2 {
+  margin-top: 20px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  margin-left: 20px;
+  }
+当然，对于这种情况，使用 margin 可能更容易一些：
+
+p {margin: 20px 30px 30px 20px;}
+不论使用单边属性还是使用 margin，得到的结果都一样。一般来说，如果希望为多个边设置外边距，使用 margin 会更容易一些。不过，从文档显示的角度看，实际上使用哪种方法都不重要，所以应该选择对自己来说更容易的一种方法。
+
+提示和注释
+提示： Netscape 和 IE 对 body 标签定义的默认边距（margin）值是 8px。而 Opera 不是这样。相反地，Opera 将内部填充（padding）的默认值定义为 8px，因此如果希望对整个网站的边缘部分进行调整，并将之正确显示于 Opera 中，那么必须对 body 的 padding 进行自定义。
+
+3.以下哪个标签不是HTML5语义化标签
+mark
+time
+figure
+date
+
+分析:
+新增的元素
+
+结构元素：
+
+section
+article
+aside
+header
+hgroup
+footer
+nav
+figure
+其他元素：
+
+video
+audio
+embed
+mark
+progress
+time
+ruby
+rt
+rp
+wbr
+canvas
+command
+details/summary
+datalist/input
+datagrid
+keygen
+output
+source
+menu
+新增的input元素的类型
+
+email
+url
+number
+range
+Date Pickers:
+data
+month
+week
+time
+datetime (UTC)
+datetime-local (local)
+新增的属性:
+表单相关属性：
+
+autofocus -> input(type=text),select,testarea,button
+placeholder -> input(type=text),testarea
+form -> input,output,select,testarea,button,fieldset
+required -> input(type=text),textarea
+autocomplete,min,max,multiple,pattern,step ->input
+list,autocomplete -> datalist
+formaction,formenctype,formmethod,formnovalidate,formtarget -> input,button
+novalidate -> input,button,form
+链接相关属性：
+
+media -> a,area
+hreflang,rel -> area
+sizes -> link
+target -> base
+其他属性：
+
+reversed -> ol
+charset -> meta
+type,label -> menu
+scoped -> style
+async -> script
+manifest -> html
+sandbox,seamless,srcdoc -> iframe
+
+4.下面哪个不属于CSS中表示尺寸的单位？
+
+px、%
+em、rem
+mm、ck
+pt、pc
+分析:
+这里引用的是Jorux的“95%的中国网站需要重写CSS”的文章， 题目有点吓人，但是确实是现在国内网页制作方面的一些缺陷。我一直也搞不清楚px与em之间的关系和特点，看过以后确实收获很大。平时都是用px来定义字 体，所以无法用浏览器字体放大的功能，而国外大多数网站都可以在IE下使用。因为：
+
+1. IE无法调整那些使用px作为单位的字体大小;
+2. 国外的大部分网站能够调整的原因在于其使用了em作为字体单位;
+3. Firefox能够调整px和em，但是96%以上的中国网民使用IE浏览器(或内核)。
+px像素(Pixel)是相对长度单位，像素px是相对于显示器屏幕分辨率而言的。(引自CSS2.0手册)
+
+em是相对长度单位，相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。(引自CSS2.0手册)
+
+字体单位使用em能支持IE6下的字体缩放，在页面中按ctrl+滚轮，字体以px为单位的网站没有反应。
+
+px是绝对单位，不支持IE的缩放。
+em是相对单位，网页中的文字能放大和缩小。将行距(line-height)，和纵向高度的单位都用em。保证缩放时候的整体性。
+任意浏览器的默认字体高都是16px。所有未经调整的浏览器都符合: 1em=16px。那么12px=0.75em,10px=0.625em。为了简化font-size的换算，需要在css中的body选择器中声明 Font-size=62.5%，这就使em值变为 16px*62.5%=10px, 这样12px=1.2em, 10px=1em, 也就是说只需要将你的原来的px数值除以10，然后换上em作为单位就行了。
+
+em有如下特点：
+
+1. em的值并不是固定的;
+2. em会继续父级元素的字体大小。
+所以我们在写CSS的时候，需要注意：
+
+1. body选择器中声明Font-size=62.5%;(Font-size=63%;用于ie6兼容)
+2. 将你的原来的px数值除以10，然后换上em作为单位;
+3. 重新计算那些被放大的字体的em数值。避免字体大小的重复声明。
+也就是避免1.2 * 1.2= 1.44的现象。比如说你在#content中声明了字体大小为1.2em，那么在声明p的字体大小时就只能是1em，而不是1.2em, 因为此em非彼em，它因继续#content的字体高而变为了1em=12px。
+
+但是12px汉字例外，就是由以上方法得到的12px(1.2em)大小的汉字在IE中并不等于直接用12px定义的字体大小，而是稍大一点。这个问题 Jorux已经解决，只需在body选择器中把62.5%换成63%就能正常显示了。原因可能是IE处理汉字时，对于浮点的取值精确度有限。不知道有没有 其他的解释。
+
+单位pt的说明
+在印刷排版中,point是一个绝对值,它等于1/72英寸,可以用尺子丈量的,物理的英寸。但是在css中pt含义却并非如此。因为我们的显示器 被分割为了一个个的像素，单个像素只能有一种颜色 (为了简化，这里暂不讨论次像素反锯齿技术)，要在屏幕上显示，必须先把以 pt 为单位的长度转换为以像素为单位的长度，这个转换的媒介，就是 DPI (事实上，这里的所谓的 DPI，是操作系统和浏览器中使用的术语，即为 PPI, pixels per inch，和扫描仪、打印机、数码相机中的 DPI 是不同的概念)。
+
+例如，无论在哪个操作系统中，Firefox 浏览器默认的 DPI 都是 96，那么实际上 9pt = 9 * 1/72 * 96 = 12px。
+
+所以，虽然“DPI”中的“I”和“1pt 等于 1/72 inch”中的“inch”，都不代表物理上的英寸，但这两个单位互相之间是相等的，也就在相乘中约掉了。
+
+那么，真实的物理长度怎么计算呢?请拿出一把尺子，丈量你的显示器的可见宽度 (我这里是 11.2992 英寸)，除以横向分辨率 (我这里是 1024 像素)，得到的就是每个像素的物理长度。
+
+现在我们可以回答这样一个问题，网页上 9pt 的字体究竟占用了多宽的空间?答案是: 9 * 1/72 * 96 * 11.2992 / 1024 = 0.1324 英寸 = 0.3363 厘米。
+
+虽然pt是绝对单位，但是那只是针对输出设备而言的，在文字排版工具(word，abobe)中是非常有用的字体单位。不管显示器的分辨率是多少，打印在纸面上的结果是一样的。
+
+但是网页主要为了屏幕显示，而不是为了打印等其他需要的。而px能够精确地表示元素在屏幕中的位置和大小。
+
+当然。在dpi是96的情况下，9pt=12px。
+
+5.下面有关于JavaScript事件描述,哪个是错误的？
+click、mouseenter、blur事件是可以冒泡的
+mouseenter、mouseover在高级浏览器下是有区别的
+事件流是分为捕获和冒泡两个阶段
+在chrome中，可以使用addEventListener来给元素添加事件
+分析:
+6.把一个字面量对象，变成某个类的实例
+function Type() {}
+var a = {};
+______________
+// a instanceof Type === true
+分析:
+7.请填入内容，使得数组从小到大排序；
+var arr = [6,2,10,5,9,5];
+arr.sort(              )
+
+分析：
+考对sort这个函数。MDN上解释灰常清晰，附上：https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
+function(a,b){return a-b}
+
+8.把两个字符串相加并且最终的结果字符顺序反转。
+var str1 = 'abcd';
+var str2 = 'jjhhgg';
+var str3 = str1.___________(str2);
+var str4 = str3.___________('').reverse().concat('');
+分析：
+9.请问’click’事件在移动端表现与PC端有什么区别？请给出方案消除这种区别？
+分析：
+10.使用原生JavaScript实现：一个shuffle方法，将数组中的元素随机乱序排列。
+分析：
+11.请写一个表格以及对应的CSS，使表格奇数行为白色背景，偶数行为灰色背景，鼠标移上去时为黄色背景。
+分析：
+另外一份题目
+1、下面哪个不属于W3C标准盒模型？
+a.内容
+b.边框
+c.内边距
+d.轮廓
+分析：
+2、下列事件哪个不属于鼠标触发的事件？
+a.click
+b.contextmenu
+c.mouseout
+d.keydown
+分析：
+3、一个实现搜索结果的页面，如果你想实现高亮搜索关键词，应该使用下面哪个tag？
+a.<strong>
+b.<mark>
+c.<em>
+d.<highlight>
+分析：
+4、浏览器在一次HTTP请求中，需要传输一个4097字节的文本数据至服务器，可以采用哪些方式？
+a.存入indexdDB
+b.存入COOKIE
+c.放在URL参数
+d.写入Session
+e.使用post
+f.放在Local Storage
+分析：
+5、下面哪个不是CSS中表示尺寸的单位？
+a.px、%
+b.em、rem
+c.mm、ck
+d.pt、pc
+分析：
+6、请在____处填写答案，从而达到题目的要求
+var arr = [1, 2, 3, 4, 5];
+var result = arr.sort(_______________________________).join("+");
+console.log(result);
+分析：
+7、把一个字面量对象，变成某个类的实例
+function Type() {}
+var a = {};
+______________
+// a instanceof Type === true
+分析：
+8、补充下面的函数，判断p为Array
+function isArray(p){
+return Object.prototype._____.apply(p)==='_____';
+
+}
+分析：
+9、请写一个表格以及对应的CSS，使表格奇数行为白色背景，偶数行为灰色背景，鼠标移上去时为黄色背景。
+分析：
+10、实现一个程序，输入为一段英文文本，示例如下：
+Alibaba Group Holding Limited is a Chinese e-commerce company that provides consumer-to-consumer, business-to-consumer and business-to-business sales services via web portals. It also provides electronic payment services, a shopping search engine and data-centric cloud computing services. The group began in 1999 when Jack Ma founded the website Alibaba.com, a business-to-business portal to connect Chinese manufacturers with overseas buyers. In 2012, two of Alibaba’s portals handled 1.1 trillion yuan ($170 billion) in sales.
+
+统计这段文本中单词的出现频率、分布区间，要求如下：
+
+1. 仅统计英文单词，1999 $170 1.1 标点符号之类的不算做单词
+
+2. 区间分 4个：少（出现1-5次）、 中（出现6-10次）、高（出现 11－20），极高（出现 >20 次） ，给出每个区间单词数目在总单词数中的百分比
+
+3. 返回如下的 JSON 对象：
+
+{
+  'occurrence': [/** 数据元素的第一个元素为单词，第二个位出现次数**/
+  ['alibaba', 10]
+  ['consumer', 10]
+  ['business', 8]
+],
+'distribution': {
+  'high': '30%',
+  'low': '20%',
+  'medium': '40%',
+  'veryHeigh': '10%',
+}
+}
+
+
+1、正则表达式
+
+2、布局：static,absolute,relative,sticky
+
+以下代码，分别给节点 #box 增加如下样式，问节点 #box 距离 body 的上边距是多少？
+
+<body style=”margin:0;padding:0”>
+
+<div id=”box” style=”top:10px;margin:20px 10px;”>
+
+</div>
+
+</body>
+
+如果设置 position: static ; 则上边距为 20px
+
+如果设置 position: relative ; 则上边距为 30 px
+
+如果设置 position: absolute ; 则上边距为 30 px
+
+如果设置 position: sticky ; 则滚动起来上边距为 10 px
+
+position: static ; 则上边距为(  20 ) px  静态定位 top值无效
+position: relative ; 则上边距为(  30 ) px 移动的时候会包括margin
+position: absolute ; 则上边距为(  30 ) px 移动的时候会包括margin
+position: fixed ; 则上边距为(  30 ) px  固定定位的margin也会生效  移动的时候也会包括margin
+position: sticky ; 则上边距为(  20 ) px，页面滚动起来为（10）px，margin会无效；页面没滚动的 时候是静态定位
+
+
+3、实现动态加载一个 JavaScript 资源
+
+var script = document.createElement("script");
+        var head = document.getElementsByTagName("head")[0];
+
+        script.type = "text / javascript";
+        script.src = " //i.alicdn.com/resource.js";
+
+            // 绑定资源加载成功事件
+            script.onreadystatechange = function () {
+                // 判断资源加载状态是否为加载成功或加载完成
+                if (/^(loaded|complete)$/.test(script.readyState)) {
+                    script.onreadystatechange = null;
+
+                }
+            };
+
+        // 绑定资源加载失败事件
+        script.onerror = function () {
+
+        };
+
+        head.insertBefore(script, head.firstChild)
+    </script>
+参考：https://www.cnblogs.com/croso/p/5294251.html
+4、请问何为混合应用 (Hybrid APP) ，与原生 Native 应用相比它的优劣势。
+
+Hybrid APP 是 Native APP 上结合使用了 Web View （Native APP 的模块或称组件，用来加载Web资源），采用了Web 技术的 APP，本质上属于原生应用（APP外壳）。
+
+优势：
+
+兼容性良好，“一次开发，多处运行”，能够减少原生APP开发在多平台带来的问题
+代码移植性高
+
+开发者社区活跃，能够及时应用最新适合的Web技术来解决问题，提高用户体验
+
+APP更加轻便，内容更新方便，部分更新不用从 APP Store 下载
+劣势：
+
+性能：相对不如 Native APP 性能良好、体验流畅
+Web技术在APP中操作权限有限，需要APP同步支持
+5、前端性能优化（CSS动画篇）
+
+https://segmentfault.com/a/1190000000490328
+
+滥用硬件加速会导致严重性能问题，因为它增加了内存使用，并且它会导致移动端电池寿命减少。  在Blink和WebKit的浏览器中，某个元素具有3D或透视变换（perspective transform）的CSS属性，会让浏览器创建单独的图层。
+ 在Blink和WebKit的浏览器中，一当一个节点被设定了透明度的相关过渡效果或动画时，浏览器会将其作为一个单独的图层，但很多开发者使用translateZ(0)或者translate3d(0,0,0)去使浏览器创建图层。这种方式可以消除在动画开始之前的图层创建时间，使得动画尽快开始（创建图层和绘制图层还是比较慢的），而且不会随着抗锯齿而导出突变。不过这种方法需要节制，否则会因为创建过多的图层导致崩溃
+
+6、
+
+Array对象常用方法中：
+
+不改变原数组：
+1、 concat()
+
+连接两个或多个数组
+不改变原数组
+返回被连接数组的一个副本
+2、join()
+
+把数组中所有元素放入一个字符串
+不改变原数组
+返回字符串
+3、 slice()
+
+从已有的数组中返回选定的元素
+不改变原数组
+返回一个新数组
+4、 toString()
+
+把数组转为字符串
+不改变原数组
+返回数组的字符串形
+改变原数组：
+5、 pop()
+
+删除数组最后一个元素，如果数组为空，则不改变数组，返回undefined
+改变原数组
+返回被删除的元素
+
+6、 push()
+
+向数组末尾添加一个或多个元素
+改变原数组
+返回新数组的长度
+7、 reverse()
+
+颠倒数组中元素的顺序
+改变原数组
+返回该数组
+8、 shift()
+
+把数组的第一个元素删除，若空数组，不进行任何操作，返回undefined
+改变原数组
+返回第一个元素的值
+9、 sort()
+
+对数组元素进行排序(ascii)
+改变原数组
+返回该数组
+10、 splice()
+
+从数组中添加/删除项目
+改变原数组
+返回被删除的元素
+11、 unshift()
+
+http://blog.csdn.net/zqjflash/article/details/50179235
+5、HTTP 2.0 协议详解
+http://blog.csdn.net/zqjflash/article/details/50179235
+6、
+
+
+
+请实现方法 parse ，作用如下：
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+var object = {
+ b: { c: 4 }, d: [{ e: 5 }, { e: 6 }]
+};
+console.log( parse(object, ‘b.c’) == 4 ) //true
+console.log( parse(object, ‘d[0].e’) == 5 ) //true
+console.log( parse(object, ‘d.0.e’) == 5 ) //true
+console.log( parse(object, ‘d[1].e’) == 6 ) //true
+console.log( parse(object, ‘d.1.e’) == 6 ) //true
+console.log( parse(object, ‘f’) == ‘undefined’ ) //true
+
+
+
+
+复制代码
+ var object = {
+    b: { c: 4 }, d: [{ e: 5 }, { e: 6 }]
+    };
+
+function parse(obj,string){
+  var arr=string.split(".");
+  arr.forEach(function(item,index){
+   // console.log(index);
+   // console.log(item);
+   if(!isNaN(item)){
+    console.log('232');
+    var temp=arr[index-1]+"["+item+"]";
+   // console.log(temp);
+   // console.log(arr);
+    arr.splice(index-1,2,temp);
+   // console.log(arr);
+
+  }
+});
+return eval("obj."+arr.join(".")) || "undefined";
+}
+
+console.log(parse(object, 'd.1.e') == 6);
+复制代码
