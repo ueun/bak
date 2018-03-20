@@ -1,0 +1,8 @@
+http://blog.csdn.net/haoshidai
+
+https://www.zhihu.com/question/60165921/answer/173063419
+
+1.开发语言技术，主要是ES6&7，coffeescript，typescript等；
+2.开发框架，如Angular，React,Vue.js，Angular2等；
+3.开发工具的丰富和前端工程化，像Grunt，Gulp，Webpack，npm，eslint，mocha这些技术；
+4.前端开发范围的扩展，如服务端的nodejs,express,koa,meteor,GraphQL;移动端和跨平台的PhoneGap,ionic,ReactNative，Weex;计算机图形学和3维建模领域的WebGL(three.js等)；可视化与数据分析领域的d3.js等；包括浏览器不断开放的更多新特性和接口比如svg,canvas,蓝牙，电池，本地存储，service worker，Houdini等新的API能力，以及像WASM这样的底层优化技术；

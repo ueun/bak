@@ -125,77 +125,213 @@ border-radius: 15px;
 text-shadow:5px 2px 6px rgba(64, 64, 64, 0.5);
 
 
-BFC、IFC
-
 对栅格的理解
+要素:栅格的最小单位 、屏幕总宽度、列数、列宽、间隔、安全边距
+Bootstrap：12等分
+
 
 （水平）居中有哪些实现方式
+一、在父元素中设置text-align:center实现行内元素水平居中
+二、在本身元素设置margin: 0 auto实现块级元素水平居中
+
 
 1像素边框问题
+1、使用background-image实现
+2、viewport + rem
+<meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+<meta name="viewport" content="initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no">
 
 图片懒加载
+图片延迟加载也称为懒加载，延迟加载图片或符合某些条件时才加载某些图片，通常用于图片比较多的网页。可以减少请求数或者延迟请求数，优化性能。
+【1】延时加载，使用setTimeout或setInterval进行加载延迟，如果用户在加载前就离开，自然就不会进行加载。
+【2】条件加载，符合某些条件或者触发了某些条件才开始异步加载。
+【3】可视区域加载，仅仅加载用户可以看到的区域，这个主要监控滚动条来实现，一般距离用户看到的底边很近的时候开始加载，这样能保证用户下拉时图片正好接上，不会有太长时间的停顿
+
 
 实现页面加载进度条
+页面每加载到指定区域，则返回(n)%的进度结果，通过设置多个节点，来达到一步一步显示加载进度的目的。
+
 
 事件委托
+当我们需要对很多元素添加事件的时候，可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数
+
 
 实现extend函数
+function extend(json,prop){
+    function F(){
 
-为什么会有跨域的问题以及解决方式
+    }
+    /**
+     * 如果json为函数
+     */
+    if(typeof json == "function"){
+        /**
+         * 如果json为一个函数，把json的原型赋值给了F的原型，相当于F继承了json
+         */
+        F.prototype = json.prototype;
+        /**
+         * prop为扩展，把prop的每一个key,value键值对赋值给了F的prototype
+         */
+        for(var i in prop){
+            F.prototype[i] = prop[i];
+        }
+    }
 
-jsonp原理、postMessage原理
+    /**
+     * 如果json为json对象
+     * 当第一次调用extend方法的时候，执行该if语句
+     */
+    if(typeof json == "object"){
+        /**
+         * 遍历json对象，把json对象的每一个key值添加了F的prototype属性的属性上
+         * 把json对象的每一个value值赋值给prototype的属性的值
+         */
+        for(var i in json){
+            F.prototype[i] = json[i];
+        }
+    }
+    return new F();
+}
 
 实现拖拽功能，比如把5个兄弟节点中的最后一个节点拖拽到节点1和节点2之间
 
+01-在允许拖拽的节点元素上，使用on来监听mousedown(按下鼠标按钮)事件，鼠标按下后，克隆当前节点
+02-监听mousemove(鼠标移动)事件，修改克隆出来的节点的坐标，实现节点跟随鼠标的效果
+03-监听mouseup(放开鼠标按钮)事件，将原节点克隆到鼠标放下位置的容器里，删除原节点，拖拽完成
+
+
 动画：setTimeout何时执行，requestAnimationFrame的优点
+1、requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+2、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。
+3、大部分在浏览器在标签页/窗口处于的时候非激活状态 requestAnimationFrame是不会被执行的，而setTimeout/setInterval 会
+
 
 手写parseInt的实现：要求简单一些，把字符串型的数字转化为真正的数字即可，但不能使用JS原生的字符串转数字的API，比如Number()
+function _parseInt(str, radix) {
+     let str_type = typeof str;
+     let res = 0;
+     if (str_type !== 'string' && str_type !== 'number') {
+      // 如果类型不是 string 或 number 类型返回NaN
+      return NaN
+     }
 
-编写分页器组件的时候，为了减少服务端查询次数，点击“下一页”怎样能确保还有数据可以加载（请求数据不会为空）？
+     // 字符串处理
+     str = String(str).trim().split('.')[0]
+     let length = str.length;
+     if (!length) {
+      // 如果为空则返回 NaN
+      return NaN
+     }
 
-ES6新增了哪些特性，使用过哪些，也有当场看代码说输出结果的
+     if (!radix) {
+      // 如果 radix 为0 null undefined
+      // 则转化为 10
+      radix = 10;
+     }
+     if (typeof radix !== 'number' || radix < 2 || radix > 36) {
+      return NaN
+     }
+
+     for (let i = 0; i < length; i++) {
+      let arr = str.split('').reverse().join('');
+      res += Math.floor(arr[i]) * Math.pow(radix, i)
+     }
+
+     return res;
+}
+
 
 JS模块化的实践
 
-require.js的实现原理（如果使用过webpack，进一步会问，两者打包的异同及优缺点）
+CommonJS
+CommonJS定义的模块分为:{模块引用(require)} {模块定义(exports)} {模块标识(module)}
+require()用来引入外部模块；exports对象用于导出当前模块的方法或变量，唯一的导出口；module对象就代表模块本身
+require 是同步的，主要使用做node开发
 
-promise的实现原理，进一步会问async、await是否使用过
+AMD(异步模块定义)
+AMD也采用require()语句加载模块，但是不同于CommonJS，它要求两个参数：require([module], callback);
+RequireJS就是实现了AMD规范的呢。
+<script src="js/require.js" defer async="true" ></script> async属性表明这个文件需要异步加载
+<script src="js/require.js" data-main="js/main"></script>  data-main属性的作用是，指定网页程序的主模块
+模块定义在define()，require(['math'], function (math){
 
-实现gulp的功能
 
-使用前端框架（angular/vue/react）带来哪些好处，相对于使用jQuery
+CMD规范（通用模块定义）
+seajs
+
+
+require.js的实现原理
+
+config 首先定义模块以及其路径映射
+require为程序入口
+define设计各个模块，响应require的调度
+
 
 vue双向数据绑定的实现
+vue运用了es5中Object.defineProperty()这个方法,通过它来实现对一个对象属性的劫持的，在创建实例的时候vue会对option中的data对象进行一次数据格式化或者说初始化，给每个data的属性都设置上get/set进行对象劫持,
+当值有变化时，通知更新UI
+
 
 单页应用，如何实现其路由功能
+Hash 路由
+当 url 的 hash 发生变化的时候，可以触发相应 hashchange 回调函数
 
-项目中使用过哪些优化方法
+History路由
+在 HTML5 规范中提供了 history.pushState || history.replaceState 来进行路由控制
+
+
 
 输入一个URL，Enter之后发生了什么
+1.解析URL，2. DNS解析 3. 浏览器与网站建立TCP连接 4.请求和传输数据 5.浏览器渲染页面
 
-（承上）页面的渲染过程
+页面的渲染过程
+解析html以构建dom树 -> 构建render树 -> 布局render树 -> 绘制render树
+当浏览器获得一个html文件时，会“自上而下”加载，并在加载过程中进行解析渲染
+1. 浏览器会将HTML解析成一个DOM树，DOM 树的构建过程是一个深度遍历过程：当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。
+2. 将CSS解析成 CSS Rule Tree 。
+3. 根据DOM树和CSSOM来构造 Rendering Tree。注意：Rendering Tree 渲染树并不等同于 DOM 树，因为一些像 Header 或 display:none 的东西就没必要放在渲染树中了。
+4.有了Render Tree，浏览器已经能知道网页中有哪些节点、各个节点的CSS定义以及他们的从属关系。下一步操作称之为Layout，顾名思义就是计算出每个节点在屏幕中的位置。
+5.再下一步就是绘制，即遍历render树，并使用UI后端层绘制每个节点。
+
 
 优化中会提到缓存的问题，问：静态资源或者接口等如何做缓存优化
 
+请求数量
+合并脚本和样式表，CSS Sprites，拆分初始化负载，划分主域
+
+请求带宽
+开启GZip，精简JavaScript，移除重复脚本，图像优化
+
+缓存利用
+使用CDN，使用外部JavaScript和CSS，添加Expires头，减少DNS查找，配置ETag，使AjaX可缓存
+
+页面结构
+将样式表放在顶部，将脚本放在底部，尽早刷新文档的输出
+
+代码校验
+避免CSS表达式，避免重定向
+
+
 页面DOM节点太多，会出现什么问题？如何优化？
+JS中大量的DOM操作也会导致事件响应缓慢甚至真正卡死浏览器
+减少DOM操作，DOM操作的代价是相当昂贵的，大多数DOM操作都会触发浏览器的回流(reflow)操作。例如添加删除节点，修改元素样式，获取需要经过计算的元素样式等。我们要做的就是尽量少的触发回流操作
 
-介绍一下你做的这个项目，进一步细问：整个项目有哪些模块，你主要负责哪些
-
-你在项目中的角色
-
-你在项目中做的最出彩的一个地方
-
-碰到过什么样的困难，怎么解决的
-
-（如果你是这个项目的负责人），任务怎么分配的，有没有关注过团队成员的成长问题
 
 前端安全问题：CSRF和XSS
+csrf是让用户在不知情的情况，冒用其身份发起了一个请求
+XSS本质是Html注入，和SQL注入差不多
+
 
 比如webpack打包原理、如何写webpack插件等。
 
-技术一面面的是一些比较具体的细节，用过什么框架啊，底层的原理是什么啊，浏览器模型啊，设计模式什么的大概40分钟的样子，然后第二天就是技术二面，问的差不多，第三天就是技术三面，问了很多网络和服务器的问题
+把所有依赖打包成一个bundle.js文件，通过代码分割成单元片段并按需加载
+一切皆模块\按需加载\可用CommonsChunkPlugin
+
 
 prototype和__proto__的关系是什么
+__proto__（隐式原型）与prototype（显式原型）
+
+
 meta viewport原理
 域名收敛是什么
 float和display：inline-block；的区别
