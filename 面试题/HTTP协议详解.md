@@ -2,36 +2,36 @@ https://www.cnblogs.com/chaoran/p/4783633.html
 
 http协议的内容很多，初学阶段需要了解http协议的基本概念，http消息的基本结构以及http请求和响应所包含的基本信息，但http协议还有更多的内容需要学习，包括缓存、cookie、压缩和认证等等，深入学习http协议的相关知识必将帮助前端工程师更好地完成工作。
 
-什么是HTTP协议
+### 什么是HTTP协议
 协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器
 目前我们使用的是HTTP/1.1 版本
 
-当我们打开浏览器，在地址栏中输入URL，然后我们就看到了网页。 原理是怎样的呢？
+### 当我们打开浏览器，在地址栏中输入URL，然后我们就看到了网页。 原理是怎样的呢？
 
 实际上我们输入URL后，我们的浏览器给Web服务器发送了一个Request, Web服务器接到Request后进行处理，生成相应的Response，然后发送给浏览器， 浏览器解析Response中的HTML,这样我们就看到了网页，过程如下图所示
 
-URL详解
+### URL详解
 schema://host[:port#]/path/.../[;url-params][?query-string][#anchor]
 
-HTTP协议是无状态的
+### HTTP协议是无状态的
 http协议是无状态的，同一个客户端的这次请求和上次请求是没有对应关系，对http服务器来说，它并不知道这两个请求来自同一个客户端。 为了解决这个问题， Web程序引入了Cookie机制来维护状态.
 
-HTTP消息的结构
+### HTTP消息的结构
 
-Request
+#### Request
 第一部分叫请求行， 第二部分叫http header, 第三部分是body. header和body之间有个空行， 结构如下图
 第一行中的Method表示请求方法，比如"POST"，"GET"，  Path-to-resoure表示请求的资源， Http/version-number 表示HTTP协议的版本号
 
-Response
+#### Response
 第一部分叫request line, 第二部分叫request header，第三部分是body. header和body之间也有个空行，  结构如下图
 
-Get和Post方法的区别
+### Get和Post方法的区别
 Http协议定义了很多与服务器交互的方法，最基本的有4种，分别是GET,POST,PUT,DELETE
 GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&相连，如EditPosts.aspx?name=test1&id=123456.  POST方法是把提交的数据放在HTTP包的Body中.
 2. GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制.
 
 
-状态码
+### 状态码
 Response 消息中的第一行叫做状态行，由HTTP协议版本号， 状态码， 状态消息 三部分组成。
 
 状态码用来告诉HTTP客户端，HTTP服务器是否产生了预期的Response.
@@ -58,9 +58,9 @@ HTTP/1.1中定义了5类状态码， 状态码由三位数字组成，第一个�
 500 Internal Server Error 服务器发生了不可预期的错误
 503 Server Unavailable 服务器当前不能处理客户端的请求，一段时间后可能恢复正常
 
-HTTP Request header
+### HTTP Request header
 
-Cache 头域
+#### Cache 头域
 
 If-Modified-Since
 作用： 把浏览器端缓存页面的最后修改时间发送到服务器去，服务器会把这个时间与服务器上实际文件的最后修改时间进行对比。如果时间一致，那么返回304，客户端就直接使用本地缓存文件。如果时间不一致，就会返回200和新的文件内容。客户端接到之后，会丢弃旧文件，把新文件缓存起来，并显示在浏览器中。
@@ -78,7 +78,8 @@ Cache-Control:Public   可以被任何缓存所缓存（）
 Cache-Control:Private     内容只缓存到私有缓存中
 Cache-Control:no-cache  所有内容都不会被缓存
 
-Client 头域
+#### Client 头域
+
 Accept
 浏览器端可以接受的媒体类型, Accept: */*  代表浏览器可以处理所有类型
 
@@ -95,10 +96,10 @@ User-Agent
 Accept-Charset
 作用：浏览器申明自己接收的字符集，这就是本文前面介绍的各种字符集和字符编码，如gb2312，utf-8（通常我们说Charset包括了相应的字符编码方案）；
 
-Cookie/Login 头域
+#### Cookie/Login 头域
 最重要的header, 将cookie的值发送给HTTP 服务器
 
-Entity头域
+#### Entity头域
 Content-Length
 发送给HTTP服务器数据的长度。
 
@@ -106,19 +107,19 @@ Content-Type
 告诉服务端，你传递过去的内容
 ’application/json’,’application/x-www-form-urlencoded 表单’,’multipart/form-data 文件’。
 
-Miscellaneous 头域
+#### Miscellaneous 头域
 提供了Request的上下文信息的服务器，告诉服务器我是从哪个链接过来的，比如从我主页上链接到一个朋友那里，他的服务器就能够从HTTP Referer中统计出每天有多少用户点击我主页上的链接访问他的网站
 
-Transport 头域
+#### Transport 头域
 Connection
 例如：　Connection: keep-alive   当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接
 例如：  Connection: close  代表一个Request完成后，客户端和服务器之间用于传输HTTP数据的TCP连接会关闭， 当客户端再次发送Request，需要重新建立TCP连接。
 
 Host（发送请求时，该报头域是必需的）
 
-HTTP Response header
+### HTTP Response header
 
-Cache头域
+#### Cache头域
 
 Date
 作用:  生成消息的具体时间和日期
@@ -132,7 +133,7 @@ Vary
 作用：
 例如: Vary: Accept-Encoding
 
-Cookie/Login 头域
+#### Cookie/Login 头域
 
 P3P
 作用: 用于跨域设置Cookie, 这样可以解决iframe跨域访问cookie的问题
@@ -142,7 +143,7 @@ Set-Cookie
 作用： 非常重要的header, 用于把cookie 发送到客户端浏览器， 每一个写入cookie都会生成一个Set-Cookie.
 例如: Set-Cookie: sc=4c31523a; path=/; domain=.acookie.taobao.com
 
-Entity头域
+#### Entity头域
 
 ETag
 作用:  和If-None-Match 配合使用。 （实例请看上节中If-None-Match的实例）
@@ -172,7 +173,7 @@ Content-Language
 作用： WEB服务器告诉浏览器自己响应的对象的语言者
 例如： Content-Language:da
 
-Miscellaneous 头域
+#### Miscellaneous 头域
 Server:
 作用：指明HTTP服务器的软件信息
 例如:Server: Microsoft-IIS/7.5
@@ -186,21 +187,21 @@ X-Powered-By:
 作用：表示网站是用什么技术开发的
 例如： X-Powered-By: ASP.NET
 
-Transport头域
+#### Transport头域
 
 Connection
 例如：　Connection: keep-alive   当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接
 例如：  Connection: close  代表一个Request完成后，客户端和服务器之间用于传输HTTP数据的TCP连接会关闭， 当客户端再次发送Request，需要重新建立TCP连接。
 
-Location头域
+#### Location头域
 Location
 作用： 用于重定向一个新的位置， 包含新的URL地址
 
 实例请看304状态实例
 
-HTTP协议是无状态的和Connection: keep-alive的区别
+### HTTP协议是无状态的和Connection: keep-alive的区别
 无状态是指协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。从另一方面讲，打开一个服务器上的网页和你之前打开这个服务器上的网页之间没有任何联系。
 
-HTTP是一个无状态的面向连接的协议，无状态不代表HTTP不能保持TCP连接，更不能代表HTTP使用的是UDP协议（无连接）。
+### HTTP是一个无状态的面向连接的协议，无状态不代表HTTP不能保持TCP连接，更不能代表HTTP使用的是UDP协议（无连接）。
 
 从HTTP/1.1起，默认都开启了Keep-Alive，保持连接特性，简单地

@@ -1,8 +1,8 @@
-一 数据流
-数据绑定
+### 一 数据流
+#### 数据绑定
 Angular 使用双向绑定即：界面的操作能实时反映到数据，数据的变更能实时展现到界面。
 
-实现原理：
+#### 实现原理：
 
 $scope变量中使用脏值检查来实现。像ember.js是基于setter，getter的观测机制，
 
@@ -41,11 +41,11 @@ React推崇的是函数式编程和单向数据流：给定原始界面（或数
 
 React和Vue都可以配合Redux来管理状态数据。
 
-二 视图渲染
-Angular1
+### 视图渲染
+#### Angular1
 AngularJS的工作原理是:HTML模板将会被浏览器解析到DOM中, DOM结构成为AngularJS编译器的输入。AngularJS将会遍历DOM模板, 来生成相应的NG指令,所有的指令都负责针对view(即HTML中的ng-model)来设置数据绑定。因此, NG框架是在DOM加载完成之后, 才开始起作用的。
 
-React
+#### React
 React 的渲染建立在 Virtual DOM 上——一种在内存中描述 DOM 树状态的数据结构。当状态发生变化时，React 重新渲染 Virtual DOM，比较计算之后给真实 DOM 打补丁。
 
 Virtual DOM 提供了函数式的方法描述视图，它不使用数据观察机制，每次更新都会重新渲染整个应用，因此从定义上保证了视图与数据的同步。它也开辟了 JavaScript 同构应用的可能性。
@@ -58,10 +58,10 @@ React 和 Angular 2 都有服务端渲染和原生渲染的功能。
 
 Vue.js 不使用 Virtual DOM 而是使用真实 DOM 作为模板，数据绑定到真实节点。Vue.js 的应用环境必须提供 DOM。Vue.js 有时性能会比 React 好**，而且几乎不用手工优化。
 
-三 性能与优化
+### 性能与优化
 性能方面，这几个主流框架都应该可以轻松应付大部分常见场景的性能需求，区别在于可优化性和优化对于开发体验的影响。Vue 的话需要加好 track-by 。React 需要 shouldComponentUpdate 或者全面 Immutable，Angular 2 需要手动指定 change detection strategy。从整体趋势上来说，浏览器和手机还会越变越快，框架本身的渲染性能在整个前端性能优化体系中，会渐渐淡化，更多的优化点还是在构建方式、缓存、图片加载、网络链路、HTTP/2 等方面。
 
-四 模块化与组件化
+### 模块化与组件化
 Angular1 -> Angular2
 Angular1使用依赖注入来解决模块之间的依赖问题，模块几乎都依赖于注入容器以及其他相关功能。不是异步加载的，根据依赖列出第一次加载所需的所有依赖。
 
@@ -81,7 +81,7 @@ React
 
 React 认为组件才是王道，而组件是和模板紧密关联的，组件模板和组件逻辑分离让问题复杂化了。所以就有了 JSX 这种语法，就是为了把 HTML 模板直接嵌入到 JS 代码里面，这样就做到了模板和组件关联，但是 JS 不支持这种包含 HTML 的语法，所以需要通过工具将 JSX 编译输出成 JS 代码才能使用（可以进行跨平台开发的依据，通过不同的解释器解释成不同平台上运行的代码，由此可以有RN和React开发桌面客户端）。
 
-五 语法与代码风格
+### 语法与代码风格
 React,Vue,Angular2都支持ES6，Angular2官方拥抱了TypeScript这种 JavaScript 风格。
 
 React 以 JavaScript 为中心，Angular 2 依然保留以 HTML 为中心。Angular 2 将 “JS” 嵌入 HTML。React 将 “HTML” 嵌入 JS。Angular 2 沿用了 Angular 1 试图让 HTML 更强大的方式。

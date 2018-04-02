@@ -36,8 +36,8 @@ ES6中实现的一个语法糖，用于简化基于原型集成实现类定义�
 - 静态变量 static get
 
 ### Promises
-- 异步编程方式
+- Promise则是把类似的异步处理对象和处理规则进行规范化， 并按照采用统一的接口来编写
 
 
-
-promise的实现原理，进一步会问async、await是否使用过
+### async、await
+async函数其实就相当于funciton *的作用，而await就相当与yield的作用,比起Generator函数,async/await的语义更好，代码写起来更加自然。将异步处理的逻辑放在语法层面去处理，写的代码也更加符合人的自然思考方式。
